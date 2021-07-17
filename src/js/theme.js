@@ -13,7 +13,7 @@ refs.themeSwitchToggle.addEventListener('change', onThemeSwitchToggle);
 window.addEventListener('load', onPageLoad, { once: true });
 
 function onThemeSwitchToggle(e) {
-  if (e.currentTarget.checked === true) {
+  if (e.currentTarget.checked) {
     refs.body.classList.remove(Theme.LIGHT);
     refs.body.classList.add(Theme.DARK);
     localStorage.setItem('theme', Theme.DARK);
