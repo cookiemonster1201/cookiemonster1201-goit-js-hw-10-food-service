@@ -1,33 +1,30 @@
-const Theme = {
-  LIGHT: 'light-theme',
-  DARK: 'dark-theme',
-};
+(function () {
+  const { LIGHT, DARK } = {
+    LIGHT: 'light-theme',
+    DARK: 'dark-theme',
+  };
 
-const refs = {
-  themeSwitchToggle: document.getElementById('theme-switch-toggle'),
-  body: document.querySelector('body'),
-};
+  const refs = {
+    themeSwitchToggle: document.getElementById('theme-switch-toggle'),
+    body: document.querySelector('body'),
+  };
 
-refs.themeSwitchToggle.addEventListener('change', onThemeSwitchToggle);
-window.addEventListener('load', onPageLoad, { once: true });
+  let theme = localStorage.getItem('theme');
 
-function onThemeSwitchToggle(e) {
-  if (e.currentTarget.checked) {
-    refs.body.classList.remove(Theme.LIGHT);
-    refs.body.classList.add(Theme.DARK);
-    localStorage.setItem('theme', Theme.DARK);
-  } else {
-    refs.body.classList.remove(Theme.DARK);
-    refs.body.classList.add(Theme.LIGHT);
-    localStorage.setItem('theme', Theme.LIGHT);
+  refs.themeSwitchToggle.addEventListener('change', onThemeSwitchToggle);
+  window.addEventListener('load', onPageLoad, { once: true });
+
+  function onThemeSwitchToggle({ target: { checked } }) {
+    checked ? toggleTheme(DARK, LIGHT) : toggleTheme(LIGHT, DARK);
   }
-}
 
-function onPageLoad() {
-  if (localStorage.getItem('theme') === Theme.DARK) {
-    refs.body.classList.add(Theme.DARK);
-    refs.themeSwitchToggle.checked = true;
-  } else {
-    refs.body.classList.add(Theme.LIGHT);
+  function onPageLoad() {
+    refs.body.classList.add(theme ? theme : LIGHT);
+    refs.themeSwitchToggle.checked = theme === DARK;
   }
-}
+
+  function toggleTheme(add, remove) {
+    refs.body.classList.replace(remove, add);
+    localStorage.setItem('theme', add);
+  }
+})();
