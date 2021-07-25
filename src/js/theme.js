@@ -6,7 +6,6 @@ const Theme = {
 const refs = {
   themeSwitchToggle: document.getElementById('theme-switch-toggle'),
   body: document.querySelector('body'),
-  themeSwitchToggle: document.querySelector('.theme-switch__toggle'),
 };
 
 refs.themeSwitchToggle.addEventListener('change', onThemeSwitchToggle);
